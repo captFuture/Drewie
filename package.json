@@ -4,7 +4,7 @@
   "description": "a drawing robot",
   "main": "draw.js",
   "scripts": {
-    "start": "sudo node server"
+    "start": "node server"
   },
   "keywords": [
     "drewie",
