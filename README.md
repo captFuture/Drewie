@@ -1,3 +1,12 @@
+  __                                         
+ /\ \                           __           
+ \_\ \  _ __    __   __  __  __/\_\     __   
+ /'_` \/\`'__\/'__`\/\ \/\ \/\ \/\ \  /'__`\ 
+/\ \L\ \ \ \//\  __/\ \ \_/ \_/ \ \ \/\  __/ 
+\ \___,_\ \_\\ \____\\ \___x___/'\ \_\ \____\
+ \/__,_ /\/_/ \/____/ \/__//__/   \/_/\/____/
+                                             
+
 # Drewie by @WebGyver and @captFuture
 
 This project is inspired by https://github.com/andywise/drawbot and several other wall hanging drawing robots like http://www.polargraph.co.uk or http://www.makelangelo.com/
