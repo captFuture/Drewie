@@ -4,7 +4,7 @@
   "description": "a drawing robot",
   "main": "draw.js",
   "scripts": {
-    "start": "sudo node draw.js"
+    "start": "sudo node server"
   },
   "keywords": [
     "drewie",
@@ -19,6 +19,7 @@
     "adaptive-quadratic-curve": "^1.0.2",
     "detect-rpi": "^1.4.0",
     "express": "^4.17.1",
+    "pigpio": "^2.0.1",
     "serve-static": "^1.14.1",
     "svg-path-parser": "^1.1.0",
     "svgpath": "^2.2.3",
