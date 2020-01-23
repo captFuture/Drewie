@@ -1,0 +1,43 @@
+{
+  "botID": "drawbot",
+  "swapDirections": false,
+  "localPort": 80,
+  "baseDelay": 1,
+  "d": 973,
+  "drawingScale": 100,
+  "startPos": {
+    "x": 200,
+    "y": 326
+  },
+  "stepsPerMM": [
+    10,
+    10
+  ],
+  "servo": {
+    "Min": 1600,
+    "Max": 2300,
+    "swap": true
+  },
+  "penPauseDelay": 100,
+  "remoteURL": "",
+  "pins": {
+    "leftStep": 13,
+    "leftDir": 5,
+    "leftDriver": 16,
+
+    "rightStep": 19,
+    "rightDir": 6,
+    "rightDriver": 20,
+
+    "penServo": 26,
+    
+    "btnOne": 18,
+    "btnTwo": 23,
+    "btnThree": 24
+    
+  },
+  "limits": {
+    "x": 480,
+    "y": 600
+  }
+}

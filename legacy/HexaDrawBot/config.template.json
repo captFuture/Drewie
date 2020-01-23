@@ -1,0 +1,59 @@
+{
+  "canvas": {
+    "d": 973,
+    "home": {
+      "x": 200,
+      "y": 326
+    },
+    "limits": {
+      "x": 600,
+      "y": 800
+    },
+    "drawingScale": 100
+  },
+  "pen": {
+    "servo": {
+      "pin": 26,
+      "delay": 100,
+      "pwmUp": 544,
+      "pwmDown": 2300,
+      "pwmChange": 2400
+    }
+  },
+  "lft": {
+    "stepsPerMM": 10,
+    "stepper": {
+      "delay": 1,
+      "invert": false,
+      "dir": {
+        "pin": 5
+      },
+      "step": {
+        "pin": 13
+      },
+      "power": {
+        "pin": 16
+      }
+    }
+  },
+  "rgt": {
+    "stepsPerMM": 10,
+    "stepper": {
+      "delay": 1,
+      "dir": {
+        "pin": 6
+      },
+      "step": {
+        "pin": 19
+      },
+      "power": {
+        "pin": 20
+      }
+    }
+  },
+  "pins": {
+    "btnOne": 18,
+    "btnTwo": 23,
+    "btnThree": 24
+  }
+}

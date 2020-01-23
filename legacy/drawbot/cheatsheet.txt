@@ -1,0 +1,10 @@
+function sequence:
+
+bc.drawPath()                               > gets the svg and prepares it for drawing
+doCommand()                                 > main loop through all commands to drawing
+bc.lineTo(tox, toy, doCommand)              > execute found command (if it is an arc it is subdivided to lines again)
+bc.moveTo(x, y, callback, 0)                > send coordinate move command to motor functions and wait for callback
+doRotation()                                > start actual execution of motor rotation by executing bc.rotateBoth with calculated steps for motors
+bc.rotateBoth = (s1, s2, d1, d2, callback)  > synchronize motor movement and send steps to doStep()
+doStep()                                    > Hardware sequence to execute movement with direction and one step 
+

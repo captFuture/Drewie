@@ -1,0 +1,77 @@
+{
+  "name": "drawbot",
+  "version": "1.0.1",
+  "private": true,
+  "scripts": {
+    "vue:serve": "cross-env VUE_APP_SERVER_PORT=$npm_package_config_port vue-cli-service serve --port=$npm_package_config_vue_serve_port --open",
+    "vue:build": "cross-env VUE_APP_SERVER_PORT=$npm_package_config_port vue-cli-service build",
+    "playground:icons": "cd frontend && vue serve -o playground/Icons.vue",
+    "server:watch": "DEBUG=drawbot* nodemon --watch backend backend/server.js",
+    "server:kiosk": "cross-env KIOSK=1 node backend/server.js",
+    "dev": "concurrently -k -r -i \"npm:server:watch\" \"npm:vue:serve\"",
+    "kiosk": "npm run server:kiosk",
+    "kiosk:rebuild": "npm run vue:build && npm run kiosk"
+  },
+  "config": {
+    "port": 3000,
+    "vue_serve_port": 8080
+  },
+  "dependencies": {
+    "adaptive-bezier-curve": "^1.0.3",
+    "adaptive-quadratic-curve": "^1.0.2",
+    "carlo": "^0.9.46",
+    "data-store": "^3.1.0",
+    "debug": "^4.1.1",
+    "detect-rpi": "^1.3.0",
+    "express": "^4.17.1",
+    "pigpio": "^2.0.0",
+    "rpi-gpio-buttons": "^1.1.1",
+    "socket.io": "^2.2.0",
+    "socket.io-client": "^2.2.0",
+    "svg-arc-to-cubic-bezier": "^3.2.0",
+    "svg-path-parser": "^1.1.0",
+    "vue": "^2.6.10",
+    "vue-router": "^3.0.3",
+    "vue-socket.io-extended": "^4.0.0",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-eslint": "^3.11.0",
+    "@vue/cli-service": "^3.11.0",
+    "@vue/eslint-config-prettier": "^5.0.0",
+    "babel-eslint": "^10.0.1",
+    "concurrently": "^4.1.2",
+    "cross-env": "^5.2.1",
+    "eslint": "^5.16.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "nodemon": "^1.19.2",
+    "prettier": "^1.18.2",
+    "vue-template-compiler": "^2.6.10"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "@vue/prettier"
+    ],
+    "rules": {
+      "no-console": "off"
+    },
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
+}
