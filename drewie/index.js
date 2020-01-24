@@ -50,6 +50,7 @@ var BotController = cfg => {
 
     // set up servo GPIO pin
     var servo = new Gpio(config.pins.penServo, gmOut);
+
   } else {
     // Setup for debugging if not running on a raspberry
     var gmOut = { mode: 'localdebug' };
@@ -87,11 +88,14 @@ var BotController = cfg => {
   // HARDWARE METHODS
 
   bc.setStates = () => {
+    console.log('Activating Motor drivers');
     if (isPi()) {
       logicPins[0].digitalWrite(1); // power Left Motor Driver
       logicPins[1].digitalWrite(1); // power Right Motor Driver
       console.log('pin 1:' + logicPins[0]);
       console.log('pin 2:' + logicPins[1]);
+    }else{
+
     }
   };
 
@@ -756,7 +760,6 @@ var BotController = cfg => {
   return bc;
 };
 module.exports = config => BotController(config);
-
 console.log(`
   __
  /\\ \\                           __

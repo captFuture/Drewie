@@ -122,4 +122,8 @@ server.listen(config.data.localPort, async () => {
   drewie.penUp();
   drewie.penDown();
   drewie.penUp();
+
+  drewie.setStates();
+  drewie.updateStringLengths();
+
 });
