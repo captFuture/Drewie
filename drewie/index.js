@@ -12,25 +12,25 @@ var arcToBezier = require('./arcToBezier');
 var svgpath = require('svgpath');
 
 var BotController = cfg => {
-  var bc = {};
+  var drewiecontrol = {};
   var config = cfg.data;
 
   /////////////////////////////////
   // MAIN SETUP VARIABLES
-  bc._BOT_ID = config.botID; // || 'two'
-  bc._DIRSWAP = config.swapDirections; // || true
-  bc.limits = config.limits;
+  drewiecontrol._BOT_ID = config.botID; // || 'two'
+  drewiecontrol._DIRSWAP = config.swapDirections; // || true
+  drewiecontrol.limits = config.limits;
 
-  bc.baseDelay = config.baseDelay; // || 2
-  bc._D = config.d; // || 1000// default distance between string starts
-  bc.drawingScale = config.drawingScale; // || defaults to 100%
-  bc.startPos = config.startPos; // || { x: 100, y: 100 }
+  drewiecontrol.baseDelay = config.baseDelay; // || 2
+  drewiecontrol._D = config.d; // || 1000// default distance between string starts
+  drewiecontrol.drawingScale = config.drawingScale; // || defaults to 100%
+  drewiecontrol.startPos = config.startPos; // || { x: 100, y: 100 }
 
-  bc.stepsPerMM = config.stepsPerMM; // || [5000/500, 5000/500] // steps / mm
-  bc.penPause = config.penPauseDelay; // || 200 // pause for pen up/down movement (in ms)
-  bc.servoMin = config.servo.Min;
-  bc.servoMax = config.servo.Max;
-  bc.swapServo = config.servo.swap;
+  drewiecontrol.stepsPerMM = config.stepsPerMM; // || [5000/500, 5000/500] // steps / mm
+  drewiecontrol.penPause = config.penPauseDelay; // || 200 // pause for pen up/down movement (in ms)
+  drewiecontrol.servoMin = config.servo.Min;
+  drewiecontrol.servoMax = config.servo.Max;
+  drewiecontrol.swapServo = config.servo.swap;
 
   if (isPi()) {
     /////////////////////////////////
@@ -63,19 +63,19 @@ var BotController = cfg => {
   /////////////////////////////////
   // CONTROLLER VARIABLES
 
-  bc.pos = { x: 0, y: 0 };
-  bc.penPos = 0;
-  bc.paused = false;
+  drewiecontrol.pos = { x: 0, y: 0 };
+  drewiecontrol.penPos = 0;
+  drewiecontrol.paused = false;
 
   // string length stuff
-  bc.startStringLengths = [0, 0];
-  bc.stringLengths = [0, 0];
-  bc.startSteps = [0, 0];
-  bc.currentSteps = [0, 0];
-  bc.stepCounts = [0, 0];
-  bc.steppeds = [0, 0];
-  bc.paths = [];
-  bc.drawingPath = false;
+  drewiecontrol.startStringLengths = [0, 0];
+  drewiecontrol.stringLengths = [0, 0];
+  drewiecontrol.startSteps = [0, 0];
+  drewiecontrol.currentSteps = [0, 0];
+  drewiecontrol.stepCounts = [0, 0];
+  drewiecontrol.steppeds = [0, 0];
+  drewiecontrol.paths = [];
+  drewiecontrol.drawingPath = false;
 
   /////////////////////////////////
   // LIMIT SWITCHES FOR AUTOMATIC HOMING
@@ -87,7 +87,7 @@ var BotController = cfg => {
   /////////////////////////////////
   // HARDWARE METHODS
 
-  bc.setStates = () => {
+  drewiecontrol.setStates = () => {
     console.log('Activating Motor drivers');
     if (isPi()) {
       logicPins[0].digitalWrite(1); // power Left Motor Driver
@@ -99,56 +99,56 @@ var BotController = cfg => {
     }
   };
 
-  bc.updateStringLengths = () => {
-    bc.startStringLengths = [
-      Math.sqrt(bc.startPos.x * bc.startPos.x + bc.startPos.y * bc.startPos.y),
-      Math.sqrt((bc._D - bc.startPos.x) * (bc._D - bc.startPos.x) + bc.startPos.y * bc.startPos.y),
+  drewiecontrol.updateStringLengths = () => {
+    drewiecontrol.startStringLengths = [
+      Math.sqrt(drewiecontrol.startPos.x * drewiecontrol.startPos.x + drewiecontrol.startPos.y * drewiecontrol.startPos.y),
+      Math.sqrt((drewiecontrol._D - drewiecontrol.startPos.x) * (drewiecontrol._D - drewiecontrol.startPos.x) + drewiecontrol.startPos.y * drewiecontrol.startPos.y),
     ];
-    bc.stringLengths = [bc.startStringLengths[0], bc.startStringLengths[1]];
-    bc.startSteps = [
-      Math.round(bc.stringLengths[0] * bc.stepsPerMM[0]),
-      Math.round(bc.stringLengths[1] * bc.stepsPerMM[1]),
+    drewiecontrol.stringLengths = [drewiecontrol.startStringLengths[0], drewiecontrol.startStringLengths[1]];
+    drewiecontrol.startSteps = [
+      Math.round(drewiecontrol.stringLengths[0] * drewiecontrol.stepsPerMM[0]),
+      Math.round(drewiecontrol.stringLengths[1] * drewiecontrol.stepsPerMM[1]),
     ];
-    bc.currentSteps = [bc.startSteps[0], bc.startSteps[1]];
+    drewiecontrol.currentSteps = [drewiecontrol.startSteps[0], drewiecontrol.startSteps[1]];
 
-    console.log('bc.startPos', JSON.stringify(bc.startPos));
-    console.log('startStringLengths', JSON.stringify(bc.startStringLengths));
-    return bc.startStringLengths;
+    console.log('drewiecontrol.startPos', JSON.stringify(drewiecontrol.startPos));
+    console.log('startStringLengths', JSON.stringify(drewiecontrol.startStringLengths));
+    return drewiecontrol.startStringLengths;
   };
 
-  bc.setStartPos = data => {
-    cfg.data.startPos.x = bc.startPos.x = Number(data.x); // set values and store in config
-    cfg.data.startPos.y = bc.startPos.y = Number(data.y); // set values and store in config
+  drewiecontrol.setStartPos = data => {
+    cfg.data.startPos.x = drewiecontrol.startPos.x = Number(data.x); // set values and store in config
+    cfg.data.startPos.y = drewiecontrol.startPos.y = Number(data.y); // set values and store in config
     cfg.save(); // save to local config.json file
-    bc.updateStringLengths();
+    drewiecontrol.updateStringLengths();
   };
-  bc.setScale = data => {
-    console.log('bc.setscale:' + data);
-    cfg.data.drawingScale = bc.drawingScale = Number(data); // set value and store in config
+  drewiecontrol.setScale = data => {
+    console.log('drewiecontrol.setscale:' + data);
+    cfg.data.drawingScale = drewiecontrol.drawingScale = Number(data); // set value and store in config
     cfg.save(); // save to local config.json file
-    bc.updateStringLengths();
+    drewiecontrol.updateStringLengths();
   };
 
-  bc.setD = data => {
-    cfg.data.d = bc._D = Number(data); // set value and store in config
+  drewiecontrol.setD = data => {
+    cfg.data.d = drewiecontrol._D = Number(data); // set value and store in config
     cfg.save(); // save to local config.json file
-    bc.updateStringLengths();
+    drewiecontrol.updateStringLengths();
   };
 
-  bc.setDrawingScale = data => {
-    cfg.data.drawingScale = bc.drawingScale = Number(data); // set value and store in config
+  drewiecontrol.setDrawingScale = data => {
+    cfg.data.drawingScale = drewiecontrol.drawingScale = Number(data); // set value and store in config
     cfg.save(); // save to local config.json file
   };
 
-  bc.pen = dir => {
-    bc.penPos = dir;
+  drewiecontrol.pen = dir => {
+    drewiecontrol.penPos = dir;
     // 0=down, 1=up
-    if (bc.swapServo) {
-      var servoUpPos = bc.servoMax;
-      var servoDnPos = bc.servoMin;
+    if (drewiecontrol.swapServo) {
+      var servoUpPos = drewiecontrol.servoMax;
+      var servoDnPos = drewiecontrol.servoMin;
     } else {
-      var servoUpPos = bc.servoMin;
-      var servoDnPos = bc.servoMax;
+      var servoUpPos = drewiecontrol.servoMin;
+      var servoDnPos = drewiecontrol.servoMax;
     }
 
     if (dir == 1) {
@@ -170,20 +170,20 @@ var BotController = cfg => {
         servo.servoWrite(servoUpPos);
       }
     }
-    if (bc.localio) {
-      bc.localio.emit('penState', Number(dir));
+    if (drewiecontrol.localio) {
+      drewiecontrol.localio.emit('penState', Number(dir));
       //console.log('SendPen: '+Number(dir))
     }
   };
 
-  bc.penUp = () => bc.pen(1);
-  bc.penDown = () => bc.pen(0);
+  drewiecontrol.penUp = () => drewiecontrol.pen(1);
+  drewiecontrol.penDown = () => drewiecontrol.pen(0);
 
-  bc.penThen = (dir, callback) => {
-    if (dir != bc.penPos) {
-      bc.pen(dir);
+  drewiecontrol.penThen = (dir, callback) => {
+    if (dir != drewiecontrol.penPos) {
+      drewiecontrol.pen(dir);
       if (callback != undefined) {
-        setTimeout(callback, bc.penPause);
+        setTimeout(callback, drewiecontrol.penPause);
       }
     } else {
       callback();
@@ -192,9 +192,9 @@ var BotController = cfg => {
 
   //////////////////// TODO: change this to a wave function with pigpio
 
-  bc.makeStep = (m, d) => {
+  drewiecontrol.makeStep = (m, d) => {
     // console.log('step',d)
-    if (bc._DIRSWAP) d = !d;
+    if (drewiecontrol._DIRSWAP) d = !d;
     if (isPi()) {
       dirPins[m].digitalWrite(d);
     }
@@ -210,17 +210,17 @@ var BotController = cfg => {
     }
   };
 
-  // bc.rotateBoth takes the calculated steps and moves both motors
+  // drewiecontrol.rotateBoth takes the calculated steps and moves both motors
   // when both are finished the callback tells the function doRotation to go on (s1 and s2 are then taken)
 
-  bc.rotateBoth = (s1, s2, d1, d2, callback) => {
-    console.log('--------------------  bc.rotateBoth: ', s1, s2, d1, d2);
+  drewiecontrol.rotateBoth = (s1, s2, d1, d2, callback) => {
+    console.log('--------------------  drewiecontrol.rotateBoth: ', s1, s2, d1, d2);
     var steps = Math.round(Math.max(s1, s2)); // use biggest number of steps
     var minsteps = Math.round(Math.min(s1, s2));
 
     if (isPi()) {
     } else {
-      bc.baseDelay = 0;
+      drewiecontrol.baseDelay = 0;
     }
 
     // the motor with the bigger step number always rotates and the one with the smaller rotates every (steps/minsteps)th time
@@ -238,10 +238,10 @@ var BotController = cfg => {
                 if (callback != undefined) callback() 
             }
         }
-        doStep() //executed once when bc.rotateBoth is called
+        doStep() //executed once when drewiecontrol.rotateBoth is called
         */
     var doStep = function() {
-      //if (!bc.paused) {
+      //if (!drewiecontrol.paused) {
       setTimeout(function() {
         console.log('stepped: ' + stepped + ' | steps: ' + steps);
         if (stepped < steps) {
@@ -253,45 +253,45 @@ var BotController = cfg => {
           if (a1 >= steps) {
             // rotates only if counter is bigger or equal biggest number of steps
             a1 -= steps; // subtract biggest number of steps from counter
-            //bc.makeStep(0,d1)   //do a step on motor
+            //drewiecontrol.makeStep(0,d1)   //do a step on motor
           }
 
           a2 += s2; // add steps to do to the counter
           if (a2 >= steps) {
             // rotates only if counter is bigger or equal biggest number of steps
             a2 -= steps; // subtract biggest number of steps from counter
-            //bc.makeStep(1,d2) //do a step on motor
+            //drewiecontrol.makeStep(1,d2) //do a step on motor
           }
 
           doStep();
         } else {
-          console.log('-------------------- bc.rotateBoth done!');
+          console.log('-------------------- drewiecontrol.rotateBoth done!');
           if (callback != undefined) callback();
         }
-      }, bc.baseDelay);
+      }, drewiecontrol.baseDelay);
       //} else {
       // paused!
       //console.log('paused!')
-      //bc.paused = false
+      //drewiecontrol.paused = false
       //}
     };
     doStep();
   };
 
-  // bc.rotate is only used for manual positioning via gui
-  bc.rotate = (motorIndex, dirIndex, delay, steps, callback) => {
-    console.log('bc.rotate', motorIndex, dirIndex, delay, steps);
-    bc.stepCounts[motorIndex] = Math.round(steps);
-    bc.steppeds[motorIndex] = 0;
+  // drewiecontrol.rotate is only used for manual positioning via gui
+  drewiecontrol.rotate = (motorIndex, dirIndex, delay, steps, callback) => {
+    console.log('drewiecontrol.rotate', motorIndex, dirIndex, delay, steps);
+    drewiecontrol.stepCounts[motorIndex] = Math.round(steps);
+    drewiecontrol.steppeds[motorIndex] = 0;
     // var dir = (dirIndex==1) ? 0 : 1// reverses direction
 
     // doStep, then wait for delay d
     var doStep = function(d, m) {
-      bc.makeStep(m, dirIndex); // changed to dirIndex from dir
-      bc.steppeds[m]++;
-      if (bc.steppeds[m] < bc.stepCounts[m]) {
+      drewiecontrol.makeStep(m, dirIndex); // changed to dirIndex from dir
+      drewiecontrol.steppeds[m]++;
+      if (drewiecontrol.steppeds[m] < drewiecontrol.stepCounts[m]) {
         setTimeout(function() {
-          // console.log(m, bc.steppeds[m], "/", bc.stepCounts[m], d*bc.steppeds[m], "/", bc.stepCounts[m]*d)
+          // console.log(m, drewiecontrol.steppeds[m], "/", drewiecontrol.stepCounts[m], d*drewiecontrol.steppeds[m], "/", drewiecontrol.stepCounts[m]*d)
           doStep(d, m);
         }, d);
       } else {
@@ -299,7 +299,7 @@ var BotController = cfg => {
         if (callback != undefined) callback();
       }
     };
-    doStep(delay, motorIndex); //executed once when bc.rotate is called
+    doStep(delay, motorIndex); //executed once when drewiecontrol.rotate is called
   };
 
   //////////////////// END TODO: change this to a wave function with pigpio
@@ -307,18 +307,18 @@ var BotController = cfg => {
   /////////////////////////////////
   // DRAWING METHODS
 
-  bc.moveRelative = (x, y, callback, penDir = 1) => {
-    console.log('---------- bc.moveRelative', x, y, ' ----------');
-    var tox = Number(bc.pos.x) + Number(x);
-    var toy = Number(bc.pos.y) + Number(y);
-    bc.moveTo(Number(tox), Number(toy), callback, 1);
+  drewiecontrol.moveRelative = (x, y, callback, penDir = 1) => {
+    console.log('---------- drewiecontrol.moveRelative', x, y, ' ----------');
+    var tox = Number(drewiecontrol.pos.x) + Number(x);
+    var toy = Number(drewiecontrol.pos.y) + Number(y);
+    drewiecontrol.moveTo(Number(tox), Number(toy), callback, 1);
   };
 
-  bc.moveTo = (x, y, callback, penDir = 1) => {
+  drewiecontrol.moveTo = (x, y, callback, penDir = 1) => {
     var x = Math.round(x);
     var y = Math.round(y);
 
-    //console.log('---------- bc.moveTo', x, y, ' ----------')
+    //console.log('---------- drewiecontrol.moveTo', x, y, ' ----------')
     if (x == 0 && y == 0) {
       console.log('-------> homing <-------');
     }
@@ -330,13 +330,13 @@ var BotController = cfg => {
     // L1 = Math.sqrt(X² + Y²)
     // L2 = Math.sqrt((d - X)² + Y²)
 
-    var X = Math.round(x + bc.startPos.x);
-    var Y = Math.round(y + bc.startPos.y);
+    var X = Math.round(x + drewiecontrol.startPos.x);
+    var Y = Math.round(y + drewiecontrol.startPos.y);
 
     var X2 = X * X;
     var Y2 = Y * Y;
 
-    var DsubX = bc._D - X;
+    var DsubX = drewiecontrol._D - X;
     var DsubX2 = DsubX * DsubX;
 
     L1 = Math.sqrt(X2 + Y2);
@@ -346,15 +346,15 @@ var BotController = cfg => {
 
     // convert string lengths to motor steps (float to int)
 
-    var s1 = Math.round(L1 * bc.stepsPerMM[0]);
-    var s2 = Math.round(L2 * bc.stepsPerMM[1]);
+    var s1 = Math.round(L1 * drewiecontrol.stepsPerMM[0]);
+    var s2 = Math.round(L2 * drewiecontrol.stepsPerMM[1]);
 
     // console.log('s:',s1,s2)
-    // console.log('bc.currentSteps:',bc.currentSteps[0],bc.currentSteps[1])
+    // console.log('drewiecontrol.currentSteps:',drewiecontrol.currentSteps[0],drewiecontrol.currentSteps[1])
 
     // get difference between target steps and current steps (+/- int)
-    var sd1 = s1 - bc.currentSteps[0];
-    var sd2 = s2 - bc.currentSteps[1];
+    var sd1 = s1 - drewiecontrol.currentSteps[0];
+    var sd2 = s2 - drewiecontrol.currentSteps[1];
     // console.log('sd:',sd1,sd2)
 
     // get directions from steps difference
@@ -377,48 +377,48 @@ var BotController = cfg => {
 
     function doRotation() {
       // do the rotation!
-      bc.rotateBoth(ssteps1, ssteps2, sdir1, sdir2, callback);
+      drewiecontrol.rotateBoth(ssteps1, ssteps2, sdir1, sdir2, callback);
 
       // store new current steps
-      bc.currentSteps[0] = s1;
-      bc.currentSteps[1] = s2;
+      drewiecontrol.currentSteps[0] = s1;
+      drewiecontrol.currentSteps[1] = s2;
 
-      // store new bc.pos
-      bc.pos.x = x;
-      bc.pos.y = y;
+      // store new drewiecontrol.pos
+      drewiecontrol.pos.x = x;
+      drewiecontrol.pos.y = y;
     }
     doRotation();
   };
 
-  bc.lineTo = (x, y, callback) => {
-    bc.moveTo(Number(x), Number(y), callback, 0); // 0 makes bc.moveTo happen with pen down instead of up
+  drewiecontrol.lineTo = (x, y, callback) => {
+    drewiecontrol.moveTo(Number(x), Number(y), callback, 0); // 0 makes drewiecontrol.moveTo happen with pen down instead of up
   };
 
-  bc.addPath = pathString => {
-    console.log('bc.addPath');
-    bc.paths.push(pathString);
-    console.log('pathcount: ', bc.paths.length);
-    if (bc.paths.length == 1 && bc.drawingPath == false) {
-      bc.drawNextPath();
+  drewiecontrol.addPath = pathString => {
+    console.log('drewiecontrol.addPath');
+    drewiecontrol.paths.push(pathString);
+    console.log('pathcount: ', drewiecontrol.paths.length);
+    if (drewiecontrol.paths.length == 1 && drewiecontrol.drawingPath == false) {
+      drewiecontrol.drawNextPath();
     }
   };
 
-  bc.pause = () => {
-    //bc.paused = !(bc.paused != false)
-    console.log('stopped: ', bc.paused);
+  drewiecontrol.pause = () => {
+    //drewiecontrol.paused = !(drewiecontrol.paused != false)
+    console.log('stopped: ', drewiecontrol.paused);
 
     var cmdCount = cmdIndex;
   };
 
-  bc.clearcanvas = () => {
+  drewiecontrol.clearcanvas = () => {
     // Todo stopping, moving to home position and clearing input
-    bc.penThen(1, function() {
+    drewiecontrol.penThen(1, function() {
       // 0=down, 1=up
       console.log('Homing and Clearing...');
     });
   };
 
-  bc.reboot = () => {
+  drewiecontrol.reboot = () => {
     if (isPi()) {
       // Todo reboot Pi
       console.log('Reboot pressed -> rebooting RPI ');
@@ -427,16 +427,16 @@ var BotController = cfg => {
     }
   };
 
-  bc.drawNextPath = () => {
-    if (bc.paths.length > 0) {
-      bc.drawPath(bc.paths.shift());
+  drewiecontrol.drawNextPath = () => {
+    if (drewiecontrol.paths.length > 0) {
+      drewiecontrol.drawPath(drewiecontrol.paths.shift());
     } else {
       console.log('Done drawing all the paths. :)');
     }
   };
 
-  bc.drawPath = pathString => {
-    bc.drawingPath = true;
+  drewiecontrol.drawPath = pathString => {
+    drewiecontrol.drawingPath = true;
 
     console.log('generating path...');
     var drawingScale = config.drawingScale / 100;
@@ -482,18 +482,18 @@ var BotController = cfg => {
         var percentage = Math.round((cmdIndex / cmdCount) * 100);
         //console.log("command"+cmd)
         //console.log(percentage + '%')
-        if (bc.client)
-          bc.client.emit('progressUpdate', {
-            botID: bc._BOT_ID,
+        if (drewiecontrol.client)
+          drewiecontrol.client.emit('progressUpdate', {
+            botID: drewiecontrol._BOT_ID,
             percentage: percentage,
           });
-        if (bc.localio)
-          bc.localio.emit('progressUpdate', {
+        if (drewiecontrol.localio)
+          drewiecontrol.localio.emit('progressUpdate', {
             percentage: percentage,
           });
 
-        if (bc.localio)
-          bc.localio.emit('progressDraw', {
+        if (drewiecontrol.localio)
+          drewiecontrol.localio.emit('progressDraw', {
             cmd: cmdCode,
             x: checkValue(Number(cmd.x)),
             y: checkValue(Number(cmd.y)),
@@ -503,7 +503,7 @@ var BotController = cfg => {
             y1: checkValue(Number(cmd.y1)),
             x2: checkValue(Number(cmd.x2)),
             y2: checkValue(Number(cmd.y2)),
-            pen: Number(bc.penPos),
+            pen: Number(drewiecontrol.penPos),
           });
 
         switch (cmdCode) {
@@ -511,41 +511,41 @@ var BotController = cfg => {
             // absolute move
             tox = checkValue(Number(cmd.x));
             toy = checkValue(Number(cmd.y));
-            bc.penThen(1, function() {
+            drewiecontrol.penThen(1, function() {
               // 0=down, 1=up
-              bc.moveTo(Number(tox), Number(toy), doCommand);
+              drewiecontrol.moveTo(Number(tox), Number(toy), doCommand);
             });
             break;
           case 'L':
             // absolute line
             tox = checkValue(Number(cmd.x));
             toy = checkValue(Number(cmd.y));
-            bc.penThen(0, function() {
+            drewiecontrol.penThen(0, function() {
               // 0=down, 1=up
-              bc.lineTo(Number(tox), Number(toy), doCommand);
+              drewiecontrol.lineTo(Number(tox), Number(toy), doCommand);
             });
             break;
           case 'H':
             // absolute horizontal line
             tox = checkValue(Number(cmd.x));
-            bc.penThen(0, function() {
+            drewiecontrol.penThen(0, function() {
               // 0=down, 1=up
-              bc.lineTo(Number(tox), Number(toy), doCommand);
+              drewiecontrol.lineTo(Number(tox), Number(toy), doCommand);
             });
             break;
           case 'V':
             // absolute vertical line
             toy = checkValue(Number(cmd.y));
-            bc.penThen(0, function() {
+            drewiecontrol.penThen(0, function() {
               // 0=down, 1=up
-              bc.lineTo(Number(tox), Number(toy), doCommand);
+              drewiecontrol.lineTo(Number(tox), Number(toy), doCommand);
             });
             break;
           case 'C':
             // absolute cubic bezier curve
-            bc.penThen(0, function() {
+            drewiecontrol.penThen(0, function() {
               // 0=down, 1=up
-              bc.drawCubicBezier(
+              drewiecontrol.drawCubicBezier(
                 // [{x:tox,y:toy}, {x:cmd.x1,y:cmd.y1}, {x:cmd.x2,y:cmd.y2}, {x:cmd.x,y:cmd.y}],
                 // 0.01,
                 [
@@ -573,8 +573,8 @@ var BotController = cfg => {
             } else {
               // get absolute x2 and y2 values from previous command if previous command was relative
               if (prevCmd.relative) {
-                prevCmd.x2 = bc.pos.x - prevCmd.x + prevCmd.x2;
-                prevCmd.y2 = bc.pos.y - prevCmd.y + prevCmd.y2;
+                prevCmd.x2 = drewiecontrol.pos.x - prevCmd.x + prevCmd.x2;
+                prevCmd.y2 = drewiecontrol.pos.y - prevCmd.y + prevCmd.y2;
               }
               // calculate inferred control point from previous commands
               // reflection of x2,y2 of previous commands
@@ -592,16 +592,16 @@ var BotController = cfg => {
               [cmd.x, cmd.y],
             ];
             console.log('calculated points:', pts);
-            bc.penThen(0, function() {
+            drewiecontrol.penThen(0, function() {
               // 0=down, 1=up
-              bc.drawCubicBezier(pts, 1, doCommand);
+              drewiecontrol.drawCubicBezier(pts, 1, doCommand);
             });
             break;
           case 'Q':
             // absolute quadratic bezier curve
-            bc.penThen(0, function() {
+            drewiecontrol.penThen(0, function() {
               // 0=down, 1=up
-              bc.drawQuadraticBezier(
+              drewiecontrol.drawQuadraticBezier(
                 [
                   [tox, toy],
                   [checkValue(cmd.x1), checkValue(cmd.y1)],
@@ -626,8 +626,8 @@ var BotController = cfg => {
             } else {
               // get absolute x1 and y1 values from previous command if previous command was relative
               if (prevCmd.relative) {
-                prevCmd.x1 = bc.pos.x - prevCmd.x + prevCmd.x1;
-                prevCmd.y1 = bc.pos.y - prevCmd.y + prevCmd.y1;
+                prevCmd.x1 = drewiecontrol.pos.x - prevCmd.x + prevCmd.x1;
+                prevCmd.y1 = drewiecontrol.pos.y - prevCmd.y + prevCmd.y1;
               }
               // calculate inferred control point from previous commands
               // reflection of x1,y1 of previous commands
@@ -638,9 +638,9 @@ var BotController = cfg => {
             }
 
             // draw it!
-            bc.penThen(0, function() {
+            drewiecontrol.penThen(0, function() {
               // 0=down, 1=up
-              bc.drawQuadraticBezier(
+              drewiecontrol.drawQuadraticBezier(
                 [
                   [tox, toy],
                   [inf.x, inf.y],
@@ -669,46 +669,46 @@ var BotController = cfg => {
             console.log(curves);
 
             // draw the arc
-            bc.penThen(0, function() {
+            drewiecontrol.penThen(0, function() {
               // 0=down, 1=up
-              bc.drawArc(curves, doCommand);
+              drewiecontrol.drawArc(curves, doCommand);
             });
             break;
           case 'Z':
             tox = checkValue(Number(cmd.x));
             toy = checkValue(Number(cmd.y));
-            bc.penThen(0, function() {
+            drewiecontrol.penThen(0, function() {
               // 0=down, 1=up
-              bc.lineTo(tox, toy, doCommand);
+              drewiecontrol.lineTo(tox, toy, doCommand);
             });
             break;
         }
 
         prevCmd = cmd;
       } else {
-        bc.penThen(1, function() {
+        drewiecontrol.penThen(1, function() {
           // 0=down, 1=up
           cmdCount = 0;
           cmdIndex = 0;
           console.log('path done!');
-          bc.drawingPath = false;
-          bc.drawNextPath();
+          drewiecontrol.drawingPath = false;
+          drewiecontrol.drawNextPath();
         });
       }
     }
     doCommand();
   };
 
-  bc.drawArc = (curves, callback) => {
+  drewiecontrol.drawArc = (curves, callback) => {
     var n = 0;
     var cCount = curves.length;
     function doCommand() {
       if (n < cCount) {
         var crv = curves[n];
         // draw the cubic bezier curve created from arc input
-        bc.drawCubicBezier(
+        drewiecontrol.drawCubicBezier(
           [
-            [bc.pos.x, bc.pos.y],
+            [drewiecontrol.pos.x, drewiecontrol.pos.y],
             [crv.x1, crv.y1],
             [crv.x2, crv.y2],
             [crv.x, crv.y],
@@ -724,14 +724,14 @@ var BotController = cfg => {
     doCommand();
   };
 
-  bc.drawCubicBezier = (points, scale = 1, callback) => {
+  drewiecontrol.drawCubicBezier = (points, scale = 1, callback) => {
     var n = 0; // curret bezier step in iteration
     var pts = cBezier(points[0], points[1], points[2], points[3], scale);
     var ptCount = pts.length;
     function doCommand() {
       if (n < ptCount) {
         var pt = pts[n];
-        bc.lineTo(Number(pt[0]), Number(pt[1]), doCommand);
+        drewiecontrol.lineTo(Number(pt[0]), Number(pt[1]), doCommand);
         n++;
       } else {
         // console.log('bezier done!')
@@ -740,14 +740,14 @@ var BotController = cfg => {
     }
     doCommand();
   };
-  bc.drawQuadraticBezier = (points, scale = 1, callback) => {
+  drewiecontrol.drawQuadraticBezier = (points, scale = 1, callback) => {
     var n = 0; // curret bezier step in iteration
     var pts = qBezier(points[0], points[1], points[2], scale);
     var ptCount = pts.length;
     function doCommand() {
       if (n < ptCount) {
         var pt = pts[n];
-        bc.lineTo(Number(pt[0]), Number(pt[1]), doCommand);
+        drewiecontrol.lineTo(Number(pt[0]), Number(pt[1]), doCommand);
         n++;
       } else {
         // console.log('bezier done!')
@@ -757,7 +757,7 @@ var BotController = cfg => {
     doCommand();
   };
 
-  return bc;
+  return drewiecontrol;
 };
 module.exports = config => BotController(config);
 console.log(`
