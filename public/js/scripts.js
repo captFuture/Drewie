@@ -68,13 +68,15 @@ home.addEventListener('click', function(e) {
     });
 */
 
+var settingsPage = document.querySelector('#settings');
+var homePage = document.querySelector('#home');
+var progressPage = document.querySelector('#progress');
+
 var settingsButton = document.querySelector('.settings');
 settingsButton.addEventListener('click', function(e) {
   toggleSettings();
 });
 
-var settingsPage = document.querySelector('#settings');
-var homePage = document.querySelector('#home');
 function toggleSettings() {
   settingsPage.classList.toggle('on');
   homePage.classList.toggle('on');
@@ -85,8 +87,7 @@ progressButton.addEventListener('click', function(e) {
   toggleProgress();
 });
 
-var progressPage = document.querySelector('#progress');
-var homePage = document.querySelector('#home');
+
 function toggleProgress() {
   progressPage.classList.toggle('on');
   homePage.classList.toggle('on');

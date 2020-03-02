@@ -254,7 +254,7 @@ aside {
 	background-color: hsla(0, 0%, 100%, .1)
 }
 
-.grid[data-v-8c0833c6] {
+.grid {
 	display: grid;
 	grid-template: repeat(6, -webkit-min-content)/repeat(2, -webkit-min-content);
 	grid-template: repeat(6, min-content)/repeat(2, min-content)
@@ -272,4 +272,36 @@ aside {
 
 .dragover{
 	opacity:0.5;
+}
+
+#view_move {
+	visibility: hidden;
+	border-color: green;
+	display:none;
+}
+
+#view_settings {
+	visibility: hidden;
+	border-color: red;
+	display:none;
+}
+#view_progress {
+	visibility: hidden;
+	border-color: blue;
+	display:none;
+}
+#view_folder {
+	visibility: hidden;
+	border-color: green;
+	display:none;
+}
+
+.on {
+	visibility: visible !important;
+	display:grid !important;
+}
+
+.act {
+	opacity:1;
+	font-weight: bold;
 }

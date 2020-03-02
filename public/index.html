@@ -12,15 +12,20 @@
 <body>
     <div id="app">
         <header>Drewie</header>
-        <nav>
-            <button id="button_folder" class=""><span class="icon icon-folder"></span></button>
-            <button id="button_move" class="router-link-exact-active active"><span class="icon icon-cursor-move"></span></button>
+        <nav id="mainNavigation">
+            <button id="button_folder" class="active"><span class="icon icon-folder"></span></button>
+            <button id="button_move" class=""><span class="icon icon-cursor-move"></span></button>
             <button id="button_progress" class=""><span class="icon icon-note"></span></button>
             <button id="button_settings" class=""><span class="icon icon-speedometer"></span></button>
             <button id="button_stop" class=""><span class="icon icon-ban"></span></button>
         </nav>
         <div class="view">
-            <main id="droptarget">
+            <main id="view_folder"  class="">
+                <div  class="grid">
+                    Folder
+                </div>
+            </main>
+            <main id="view_move" class="on">
                 <div  class="grid">
                     <button id="button_arrow_up"  class=""><span class="icon icon-arrow-up"></span></button>
                     <button id="button_arrow_left"  class=""><span class="icon icon-arrow-left"></span></button>
@@ -29,9 +34,22 @@
                     <button id="button_arrow_down"  class=""><span class="icon icon-arrow-down"></span></button>
                 </div>
             </main>
+
+            <main id="view_progress" class="">
+                <div  class="grid">
+                    Progress
+                </div>
+            </main>
+
+            <main id="view_settings" class="">
+                <div  class="grid">
+                    Settings
+                </div>
+            </main>
+
             <aside >
                 <button id="button_multiplier_one" class=""><!----><span>1</span></button>
-                <button id="button_multiplier_ten" class="active"><!----><span>10</span></button>
+                <button id="button_multiplier_ten" class=""><!----><span>10</span></button>
                 <button id="button_multiplier_onehundred" class=""><!----><span>100</span></button>
                 <button id="button_pen" class="mt"><!----><span style="font-size: 0.5em;">PEN</span></button>
             </aside>
