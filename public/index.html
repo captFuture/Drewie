@@ -1,102 +1,44 @@
-<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      id="viewport"
-      name="viewport"
-      content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
-    <title>Drawbot Control</title>
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" />
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/canvg/1.4/rgbcolor.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvg/dist/browser/canvg.min.js"></script>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Drewie</title>
+    <link href="css/newgui.css" rel="stylesheet">
+    <link href="css/icons.css" rel="stylesheet">
+    
+</head>
 
-    <script src="js/radialIndicator.min.js"></script>
-    <link href="css/style.css" rel="stylesheet" />
-  </head>
-
-  <body>
-    <div id="main">
-      <!-- <h1 id="botid">one</h1> -->
-      <div id="connection" class="fa fa-circle"></div>
-      <div class="page on" id="home">
-        <a href="#" class="btn home"><i class="fa  fa-home fa-1x"></i></a>
-        <!--<a href="#" class="btn sethome"><i class="fa  fa-plus-circle fa-1x"></i></a>//-->
-        <a href="#" class="btn settings"><i class="fa  fa-gear fa-1x"></i></a>
-        <a href="#" class="btn progress"><i class="fa  fa-sticky-note fa-1x"></i></a>
-        <a href="#" class="btn pause"><i class="fa fa-pause fa-1x"></i></a>
-        <!--<a href="#" class="btn clearcanvas"><i class="fa  fa-minus-circle fa-1x"></i></a>//-->
-        <div id="percentage" class=""></div>
-
-        <div id="control">
-          <div class="level one">
-            <div class="circle">
-              <a data-m="0" data-dir="1" data-steps="1000" class="item tl"></a>
-              <a data-m="1" data-dir="0" data-steps="1000" class="item tr"></a>
-              <a data-m="1" data-dir="1" data-steps="1000" class="item bl">1000</a>
-              <a data-m="0" data-dir="0" data-steps="1000" class="item br"></a>
-            </div>
-          </div>
-          <div class="level two">
-            <div class="circle">
-              <a data-m="0" data-dir="1" data-steps="100" class="item tl"></a>
-              <a data-m="1" data-dir="0" data-steps="100" class="item tr"></a>
-              <a data-m="1" data-dir="1" data-steps="100" class="item bl">100</a>
-              <a data-m="0" data-dir="0" data-steps="100" class="item br"></a>
-            </div>
-          </div>
-          <div class="level three">
-            <div class="circle">
-              <a data-m="0" data-dir="1" data-steps="10" class="item tl"></a>
-              <a data-m="1" data-dir="0" data-steps="10" class="item tr"></a>
-              <a data-m="1" data-dir="1" data-steps="10" class="item bl">10</a>
-              <a data-m="0" data-dir="0" data-steps="10" class="item br"></a>
-            </div>
-          </div>
-          <a href="#" id="penButton" class="btn pen">PEN</a>
+<body>
+    <div id="app">
+        <header>Drewie</header>
+        <nav>
+            <button id="button_folder" class=""><span class="icon icon-folder"></span></button>
+            <button id="button_move" class="router-link-exact-active active"><span class="icon icon-cursor-move"></span></button>
+            <button id="button_progress" class=""><span class="icon icon-note"></span></button>
+            <button id="button_settings" class=""><span class="icon icon-speedometer"></span></button>
+            <button id="button_stop" class=""><span class="icon icon-ban"></span></button>
+        </nav>
+        <div class="view">
+            <main id="droptarget">
+                <div  class="grid">
+                    <button id="button_arrow_up"  class=""><span class="icon icon-arrow-up"></span></button>
+                    <button id="button_arrow_left"  class=""><span class="icon icon-arrow-left"></span></button>
+                    <button id="button_arrow_home"  class=""><span class="icon icon-size-actual"></span></button>
+                    <button id="button_arrow_right"  class=""><span class="icon  icon-arrow-right"></span></button>
+                    <button id="button_arrow_down"  class=""><span class="icon icon-arrow-down"></span></button>
+                </div>
+            </main>
+            <aside >
+                <button id="button_multiplier_one" class=""><!----><span>1</span></button>
+                <button id="button_multiplier_ten" class="active"><!----><span>10</span></button>
+                <button id="button_multiplier_onehundred" class=""><!----><span>100</span></button>
+                <button id="button_pen" class="mt"><!----><span style="font-size: 0.5em;">PEN</span></button>
+            </aside>
         </div>
-      </div>
-      <div class="page" id="settings">
-        <a href="#" class="btn close"><i class="fa fa-close fa-1x"></i></a>
-        <form id="dxy">
-          <div>
-            <label for="d"><i class="fa fa-arrows-h"></i> D:</label>
-            <input type="number" value="0" min="0" inputmode="numeric" pattern="[0-9]*" id="d" name="d" />
-          </div>
-          <div>
-            <label for="startx"><i class="fa fa-long-arrow-right"></i> X:</label>
-            <input type="number" value="0" min="0" inputmode="numeric" pattern="[0-9]*" id="startx" name="startx" />
-          </div>
-          <div>
-            <label for="starty"><i class="fa fa-long-arrow-down"></i> Y:</label>
-            <input type="number" value="0" min="0" inputmode="numeric" pattern="[0-9]*" id="starty" name="starty" />
-          </div>
-
-          <div>
-            <label for="drawingScale"><i class="fa fa-long-arrow-right"></i> S:</label>
-            <input
-              type="number"
-              value="0"
-              min="0"
-              inputmode="numeric"
-              pattern="[0-9]*"
-              id="drawingScale"
-              name="drawingScale"
-            />
-          </div>
-        </form>
-
-        <!--<a href="#" class="btn reboot"><i class="fa fa-refresh fa-1x"></i></a>//-->
-      </div>
-      <div class="page" id="progress">
-        <a href="#" class="btn close2"><i class="fa fa-close fa-1x"></i></a>
-        <canvas id="originCanvas" width="600" height="800"> </canvas>
-        <canvas id="progressCanvas" width="600" height="800"> </canvas>
-        <canvas id="positionCanvas" width="600" height="800"> </canvas>
-      </div>
     </div>
-    <script src="js/scripts.js"></script>
-  </body>
+    <script src="js/newgui.js"></script>
+    
+</body>
+
 </html>
