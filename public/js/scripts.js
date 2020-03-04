@@ -5,6 +5,9 @@ var stepMultiplier;
 var settingsPage = document.querySelector('#view_settings');
 var movePage = document.querySelector('#view_move');
 var progressPage = document.querySelector('#view_progress');
+var settingsAside = document.querySelector('#aside_settings');
+var moveAside = document.querySelector('#aside_move');
+
 
 var folderButton = document.querySelector('#button_folder');
 var settingsButton = document.querySelector('#button_settings');
@@ -61,18 +64,27 @@ function toggleSettings() {
   settingsPage.classList.add('on');
   movePage.classList.remove('on');
   progressPage.classList.remove('on');
+
+  settingsAside.classList.add('on');
+  moveAside.classList.remove('on');
 }
 
 function toggleMove() {
     settingsPage.classList.remove('on');
     movePage.classList.add('on');
     progressPage.classList.remove('on');
+
+    settingsAside.classList.remove('on');
+    moveAside.classList.add('on');
 }
   
 function toggleProgress() {
     settingsPage.classList.remove('on');
     movePage.classList.remove('on');
     progressPage.classList.add('on');
+
+    settingsAside.classList.remove('on');
+    moveAside.classList.remove('on');
 }
 
 function toggleActiveState(button){

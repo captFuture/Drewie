@@ -25,25 +25,13 @@
                     Folder
                 </div>
             </main>
-            <!--<main id="view_move" class="on">
-                <div  class="grid">
-                    <button id="button_arrow_up" class="item" data-m="0" data-dir="1"><span class="icon icon-arrow-up"></span></button>
-                    <button id="button_arrow_left" class="item" data-m="0" data-dir="0"><span class="icon icon-arrow-left"></span></button>
-                    <button id="button_arrow_home" class="item" ><span class="icon icon-size-actual"></span></button>
-                    <button id="button_arrow_right" class="item" data-m="1" data-dir="1"><span class="icon  icon-arrow-right"></span></button>
-                    <button id="button_arrow_down" class="item" data-m="1" data-dir="0"><span class="icon icon-arrow-down"></span></button>
-                </div>
-            </main>//-->
+
             <main id="view_move" class="on">
                 <div  class="grid">
                     <button id="button_arrow_up" class="item" data-m="0" data-dir="1"><span class="icon icon-arrow-up"></span></button>
-
                     <button id="button_arrow_right" class="item" data-m="1" data-dir="1"><span class="icon  icon-arrow-up"></span></button>
-
                     <button id="button_arrow_home" class="item" ><span class="icon icon-home"></span></button>
-
                     <button id="button_arrow_left" class="item" data-m="0" data-dir="0"><span class="icon icon-arrow-down"></span></button>
-
                     <button id="button_arrow_down" class="item" data-m="1" data-dir="0"><span class="icon icon-arrow-down"></span></button>
                 </div>
             </main>
@@ -55,17 +43,49 @@
             </main>
 
             <main id="view_settings" class="">
-                <div  class="grid">
-                    Settings
-                </div>
+                
+                    <div class="input" autofocus="autofocus">
+                        <label for="input-d">d</label>
+                        <input type="number" id="input-d" autofocus="autofocus">
+                    </div>
+                    <div class="input">
+                        <label for="input-x">x</label>
+                        <input type="number" id="input-x">
+                    </div>
+                    <div class="input">
+                        <label for="input-y">y</label>
+                        <input type="number" id="input-y">
+                    </div>
+                
             </main>
 
-            <aside >
+            <aside id="aside_move"  class="on">
                 <button id="button_multiplier_one" class=""><!----><span>1</span></button>
                 <button id="button_multiplier_ten" class=""><!----><span>10</span></button>
                 <button id="button_multiplier_onehundred" class=""><!----><span>100</span></button>
                 <button id="button_pen" class="mt"><!----><span style="font-size: 0.5em;">PEN</span></button>
             </aside>
+            <aside id="aside_settings">
+                <div class="grid2">
+                    <button><!----><span>1</span></button>
+                    <button><!----><span>2</span></button>
+                    <button><!----><span>3</span></button>
+                    <button><!----><span>4</span></button>
+                    <button><!----><span>5</span></button>
+                    <button><!----><span>6</span></button>
+                    <button><!----><span>7</span></button>
+                    <button><!----><span>8</span></button>
+                    <button><!----><span>9</span></button>
+                    <button><!----><span>0</span></button>
+                    <button><span class="icon icon-arrow-left-circle"></span>
+                        <!---->
+                    </button>
+                    <button ><span class="icon icon-arrow-left-close"></span>
+                        <!---->
+                    </button>
+                </div>
+            </aside>
+
         </div>
     </div>
     <script src="js/scripts.js"></script>

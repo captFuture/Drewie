@@ -196,6 +196,23 @@ aside {
 	grid-row: 3;
 }
 
+.grid2{
+    display:grid;
+    grid-template:repeat(2,-webkit-min-content)/repeat(2,-webkit-min-content);
+	grid-template:repeat(2,min-content)/repeat(2,min-content);
+	
+}
+
+.grid2 button{
+	font-size: 9vh;
+}
+
+.grid2 button:first-child{
+	grid-column:2
+}
+
+
+
 #preview {
 	position: relative;
 	width: 100%;
@@ -265,12 +282,6 @@ aside {
 	background-color: hsla(0, 0%, 100%, .1)
 }
 
-.grid {
-	display: grid;
-	grid-template: repeat(6, -webkit-min-content)/repeat(2, -webkit-min-content);
-	grid-template: repeat(6, min-content)/repeat(2, min-content)
-}
-
 .buttons {
 	display: -webkit-box;
 	display: -ms-flexbox;
@@ -302,6 +313,16 @@ aside {
 	display:none;
 }
 #view_folder {
+	visibility: hidden;
+	border-color: green;
+	display:none;
+}
+#aside_move {
+	visibility: hidden;
+	border-color: green;
+	display:none;
+}
+#aside_settings {
 	visibility: hidden;
 	border-color: green;
 	display:none;
