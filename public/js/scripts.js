@@ -155,7 +155,7 @@ const socket = {
 
 ws.onmessage = ({ data }) => {
   try {
-    
+    console.log(data);
     const { topic, payload } = JSON.parse(data);
     callbacks[topic](payload);
   } catch (e) {
@@ -206,12 +206,35 @@ socket.on('penState', function(data) {
   }
 });
 
+var dfield = document.querySelector('input[id="input-d"]');
+var xfield = document.querySelector('input[id="input-x"]');
+var yfield = document.querySelector('input[id="input-y"]');
+var sfield = document.querySelector('input[id="input-s"]');
+
+dfield.onchange = function(e) {
+  if (dfield.value == '') dfield.value = 0;
+  var data = {
+    d: Number(dfield.value),
+  };
+  socket.emit('setD', data);
+};
+
+
+function updateStartPos() {
+  var data = {
+    x: Number(xfield.value),
+    y: Number(yfield.value),
+  };
+  socket.emit('setStartPos', data);
+}
+xfield.onchange = yfield.onchange = updateStartPos;
+
 socket.on('DXY', function(data) {
   console.log('DXY', data)
   dfield.value = data.d;
   xfield.value = data.x;
   yfield.value = data.y;
-  drawingScale.value = data.s;
+  sfield.value = data.s;
 });
 
 socket.on('botConnect', function(data) {

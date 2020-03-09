@@ -6,6 +6,8 @@
     <title>Drewie</title>
     <link href="css/newgui.css" rel="stylesheet">
     <link href="css/icons.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/canvg/1.4/rgbcolor.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvg/dist/browser/canvg.min.js"></script>
     
 </head>
 
@@ -30,15 +32,21 @@
                 <div  class="grid">
                     <button id="button_arrow_up" class="item" data-m="0" data-dir="1"><span class="icon icon-arrow-up"></span></button>
                     <button id="button_arrow_right" class="item" data-m="1" data-dir="1"><span class="icon  icon-arrow-up"></span></button>
+
                     <button id="button_arrow_home" class="item" ><span class="icon icon-home"></span></button>
+
                     <button id="button_arrow_left" class="item" data-m="0" data-dir="0"><span class="icon icon-arrow-down"></span></button>
                     <button id="button_arrow_down" class="item" data-m="1" data-dir="0"><span class="icon icon-arrow-down"></span></button>
+
+                    <button id="button_arrow_pause" class="item" ><span class="icon icon-control-pause"></span></button>
                 </div>
             </main>
 
             <main id="view_progress" class="">
-                <div  class="grid">
-                    Progress
+                <div  class="">
+                    <canvas id="originCanvas" width="600" height="800"> </canvas>
+                    <canvas id="progressCanvas" width="600" height="800"> </canvas>
+                    <canvas id="positionCanvas" width="600" height="800"> </canvas>
                 </div>
             </main>
 
@@ -55,6 +63,10 @@
                     <div class="input">
                         <label for="input-y">y</label>
                         <input type="number" id="input-y">
+                    </div>
+                    <div class="input">
+                        <label for="input-s">s</label>
+                        <input type="number" id="input-s">
                     </div>
                 
             </main>

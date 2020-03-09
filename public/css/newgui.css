@@ -196,6 +196,11 @@ aside {
 	grid-row: 3;
 }
 
+.grid button:nth-child(6) {
+	grid-column: 2;
+	grid-row: 3;
+}
+
 .grid2{
     display:grid;
     grid-template:repeat(2,-webkit-min-content)/repeat(2,-webkit-min-content);
