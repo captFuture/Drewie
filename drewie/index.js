@@ -39,6 +39,7 @@ var BotController = cfg => {
     var gmIn = { mode: Gpio.INPUT };
     var dirPins = [new Gpio(config.pins.leftDir, gmOut), new Gpio(config.pins.rightDir, gmOut)];
     var stepPins = [new Gpio(config.pins.leftStep, gmOut), new Gpio(config.pins.rightStep, gmOut)];
+    var enablePins = [new Gpio(config.pins.leftEnable, gmOut), new Gpio(config.pins.rightEnable, gmOut)];
 
     var buttonPins = [
       new Gpio(config.pins.btnOne, gmIn),
@@ -55,6 +56,7 @@ var BotController = cfg => {
     // Setup for debugging if not running on a raspberry
     var gmOut = { mode: 'localdebug' };
     var dirPins = [config.pins.leftDir, config.pins.rightDir];
+    var enablePins = [config.pins.leftEnable, config.pins.rightEnable];
     var stepPins = [config.pins.leftStep, config.pins.rightStep];
     var servo = config.pins.penServo;
     var logicPins = [config.pins.leftDriver, config.pins.rightDriver];
@@ -88,12 +90,19 @@ var BotController = cfg => {
   // HARDWARE METHODS
 
   drewiecontrol.setStates = () => {
-    console.log('Activating Motor drivers');
+    
     if (isPi()) {
+      console.log('Activating Motor drivers');
       logicPins[0].digitalWrite(1); // power Left Motor Driver
       logicPins[1].digitalWrite(1); // power Right Motor Driver
-      console.log('pin 1:' + logicPins[0]);
-      console.log('pin 2:' + logicPins[1]);
+      console.log('Driverpin 1:' + logicPins[0]);
+      console.log('Driverpin 2:' + logicPins[1]);
+
+      console.log('Enabling Motors'); // These pins are not connected in the current wiring scheme ...
+      enablePins[0].digitalWrite(0); // enable Left Motor (Motor is enabled when pin is LOW)
+      enablePins[1].digitalWrite(0); // enable Right Motor
+      console.log('Enablepin 1:' + logicPins[0]);
+      console.log('Enablepin 2:' + logicPins[1]);    
     }else{
 
     }

@@ -3,7 +3,7 @@
   "swapDirections": false,
   "localPort": 3000,
   "baseDelay": 1,
-  "d": 973,
+  "d": 980,
   "drawingScale": 100,
   "startPos": {
     "x": 200,
@@ -21,10 +21,12 @@
     "leftStep": 13,
     "leftDir": 5,
     "leftDriver": 16,
+    "leftEnable": 12,
 
     "rightStep": 19,
     "rightDir": 6,
     "rightDriver": 20,
+    "rightEnable": 21,
 
     "penServo": 26,
 
@@ -33,7 +35,7 @@
     "btnThree": 24
   },
   "limits": {
-    "x": 480,
+    "x": 800,
     "y": 600
   }
 }
