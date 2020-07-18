@@ -19,7 +19,8 @@
     "adaptive-quadratic-curve": "^1.0.2",
     "detect-rpi": "^1.4.0",
     "express": "^4.17.1",
-    "pigpio": "^2.0.1",
+    "hyperactiv": "^0.8.2",
+    "pigpio": "^3.2.3",
     "serve-static": "^1.14.1",
     "svg-path-parser": "^1.1.0",
     "svgpath": "^2.2.3",
@@ -32,5 +33,18 @@
   "bugs": {
     "url": "https://github.com/captFuture/Drewie/issues"
   },
-  "homepage": "https://github.com/captFuture/Drewie#readme"
+  "homepage": "https://github.com/captFuture/Drewie#readme",
+  "devDependencies": {
+    "prettier": "^2.0.5"
+  },
+  "prettier": {
+    "arrowParens": "avoid",
+    "bracketSpacing": true,
+    "htmlWhitespaceSensitivity": "css",
+    "printWidth": 120,
+    "semi": true,
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "es5"
+  }
 }

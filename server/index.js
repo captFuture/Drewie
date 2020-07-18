@@ -8,6 +8,7 @@
   \/__,_ /\/_/ \/____/ \/__//__/   \/_/\/____/
 
 */
+const path = require('path');
 const http = require('http');
 
 const WebSocket = require('ws');
@@ -25,6 +26,7 @@ const app = express();
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
+app.use('/hyperactiv', serve(path.normalize(path.join(require.resolve('hyperactiv'), '..', '..'))));
 app.use(serve(PUBLIC_PATH));
 
 const wrapper = {
@@ -51,7 +53,7 @@ const wrapper = {
   drawart({ content }) {
     var $ = cheerio.load(content, { xmlMode: true });
     var fullpath = '';
-    $('path').each(function() {
+    $('path').each(function () {
       var d = $(this).attr('d');
       fullpath += d.replace(/\s+/g, ' ') + ' ';
     });
@@ -125,5 +127,4 @@ server.listen(config.data.localPort, async () => {
 
   drewie.setStates();
   drewie.updateStringLengths();
-
 });
